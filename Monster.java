@@ -5,7 +5,7 @@ public class Monster {
     private String name;
     private float health;
 
-    private List<WeaponBase> weapons;
+    private List<Weapon> weapons;
 
     public Monster(String name, float health)
     {
@@ -15,7 +15,7 @@ public class Monster {
         weapons = new ArrayList<>();
     }
 
-    public void addWeapon(WeaponBase weapon)
+    public void addWeapon(Weapon weapon)
     {
         weapons.add(weapon);
     }
@@ -27,7 +27,7 @@ public class Monster {
     public float getDamage()
     {
         float dmg = .0f;
-        for(WeaponBase weapon : weapons)
+        for(Weapon weapon : weapons)
         {
             if(weapon.getType() == WeaponType.Attack)
             {
@@ -41,7 +41,7 @@ public class Monster {
     public float getArmor()
     {
         float armor = .0f;
-        for(WeaponBase weapon : weapons)
+        for(Weapon weapon : weapons)
         {
             if(weapon.getType() == WeaponType.Defense)
             {
