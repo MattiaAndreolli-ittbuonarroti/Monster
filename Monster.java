@@ -1,32 +1,65 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Monster {
     private String name;
     private float health;
-    private float damage;
-    private float armor;
 
-    public Monster(String name, float health, float damage, float armor)
+    private List<WeaponBase> weapons;
+
+    public Monster(String name, float health)
     {
         this.name = name;
         this.health = health;
-        this.damage = damage;
-        this.armor = armor;
+
+        weapons = new ArrayList<>();
+    }
+
+    public void addWeapon(WeaponBase weapon)
+    {
+        weapons.add(weapon);
     }
 
     public String getName() { return name; }
 
     public float getHealth() { return health; }
 
-    public float getDamage() { return damage; }
+    public float getDamage()
+    {
+        float dmg = .0f;
+        for(WeaponBase weapon : weapons)
+        {
+            if(weapon.getType() == WeaponType.Attack)
+            {
+                dmg += weapon.getStat();
+            }
+        }
 
-    public float getArmor() { return armor; }
+        return dmg;
+    }
+
+    public float getArmor()
+    {
+        float armor = .0f;
+        for(WeaponBase weapon : weapons)
+        {
+            if(weapon.getType() == WeaponType.Defense)
+            {
+                armor += weapon.getStat();
+            }
+        }
+
+        return armor;
+    }
 
     public void attack(Monster target)
     {
-        target.takeDamage(damage);
+        target.takeDamage(getDamage());
     }
 
     private void takeDamage(float amount)
     {
+        float armor = getArmor();
         health -= amount * (armor >= 0
             ? 100 / (100 + armor)
             : 2 - (100 / (100 - armor)));
